@@ -1,14 +1,21 @@
 package com.omo.ordermgmt.com.omo.ordermgmt.repository.customer;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "customer", schema = "orders")
 public class Customer {
     @Id
     private Long id;
+
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
+    @Column(name = "email")
     private String email;
 
     public Customer() {
