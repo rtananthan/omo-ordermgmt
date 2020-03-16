@@ -4,33 +4,42 @@ import com.omo.ordermgmt.com.omo.ordermgmt.repository.customer.Customer;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
-@Table(name = "order", schema = "orders")
 @Entity
+@Table(name = "order")
+@SequenceGenerator(name = "order_id_seq", sequenceName = "order_id_seq")
 public class Order {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_id_seq")
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name ="customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(name ="ordernumber")
+    @Column(name = "orderNumber", nullable = false)
     private String orderNumber;
 
-    @Column(name ="timeorderplaced")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "timeOrderPlaced", nullable = false, length = 29)
     private Date timeOrderPlaced;
 
-    @Column(name ="lastupdate")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "lastUpdate", nullable = false, length = 29)
     private Date lastUpdate;
 
-    @Column(name ="status")
+    @Column(name = "status", nullable = false)
     private String status;
 
-    public Order() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "catalogItem")
+    private Set<OrderItem> orderItems = new HashSet<OrderItem>(0);
 
+    public Order() {
     }
 
     public Order(long id, Customer customer, String orderNumber,
@@ -90,5 +99,13 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
