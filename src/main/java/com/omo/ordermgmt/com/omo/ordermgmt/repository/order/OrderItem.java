@@ -9,7 +9,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "orderItem")
+@Table(name = "orderitem" , schema = "orders")
 @SequenceGenerator(name = "orderitem_id_seq", sequenceName = "orderitem_id_seq")
 public class OrderItem implements Serializable {
 
@@ -25,7 +25,7 @@ public class OrderItem implements Serializable {
    private Order order;
 
    @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "catalogItem_id", nullable = false)
+   @JoinColumn(name = "catalogitem_id", nullable = false)
    private CatalogueItem catalogItem;
 
    @Column(name = "status", nullable = false)
@@ -35,7 +35,7 @@ public class OrderItem implements Serializable {
    private BigDecimal price;
 
    @Temporal(TemporalType.TIMESTAMP)
-   @Column(name = "lastUpdate", nullable = false, length = 29)
+   @Column(name = "lastupdate", nullable = false, length = 29)
    private Date lastUpdate;
 
    @Column(name = "quantity", nullable = false)

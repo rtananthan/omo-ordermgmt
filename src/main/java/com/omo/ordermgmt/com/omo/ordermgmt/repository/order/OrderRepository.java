@@ -19,7 +19,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * @param pageable
      * @return
      */
-    @Query(value = "select o from OrderEntity o where o.status = ?1 order by o.timeOrderPlaced")
+    @Query(value = "select o from Order o where o.status = ?1 order by o.timeOrderPlaced")
     Page<Order> findByStatus(String status, Pageable pageable);
 
     /**
@@ -30,6 +30,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * @return
      */
     @Modifying
-    @Query("update OrderEntity o set o.status = ?1, o.lastUpdate = ?2 where o.id in (?3)")
+    @Query("update Order o set o.status = ?1, o.lastUpdate = ?2 where o.id in (?3)")
     int updateStatus(String code, Date lastUpdate, List<Long> orderIds);
 }

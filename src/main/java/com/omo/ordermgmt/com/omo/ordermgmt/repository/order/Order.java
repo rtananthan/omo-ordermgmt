@@ -9,7 +9,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "order")
+@Table(name = "order" , schema = "orders")
 @SequenceGenerator(name = "order_id_seq", sequenceName = "order_id_seq")
 public class Order {
 
@@ -22,15 +22,15 @@ public class Order {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(name = "orderNumber", nullable = false)
+    @Column(name = "ordernumber", nullable = false)
     private String orderNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "timeOrderPlaced", nullable = false, length = 29)
+    @Column(name = "timeorderplaced", nullable = false, length = 29)
     private Date timeOrderPlaced;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "lastUpdate", nullable = false, length = 29)
+    @Column(name = "lastupdate", nullable = false, length = 29)
     private Date lastUpdate;
 
     @Column(name = "status", nullable = false)
